@@ -30,7 +30,10 @@ export const updateMovie = async (req: Request, res: Response) => {
       id,
       { name, year, producer, actors },
       { new: true }
-    );
+    )
+      .populate("producer")
+      .populate("actors");
+
     res.json(movie);
   } catch (error) {
     res.status(400).json({ message: (error as any).message });
