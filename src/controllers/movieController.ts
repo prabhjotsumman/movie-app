@@ -15,8 +15,14 @@ export const addMovie = async (req: Request, res: Response) => {
   try {
     const movie = new Movie({ name, year, plot, poster, producer, actors });
     console.log("RECEIVED:", movie);
-    await movie.save();
-    res.status(201).json(movie);
+    const savedMovie = await movie.save();
+
+    // Populate the producer and actors fields
+    const populatedMovie = await Movie.findById(savedMovie._id)
+      .populate("producer")
+      .populate("actors");
+
+    res.status(201).json(populatedMovie);
   } catch (error) {
     res.status(400).json({ message: (error as any).message });
   }
@@ -24,11 +30,11 @@ export const addMovie = async (req: Request, res: Response) => {
 
 export const updateMovie = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const { name, year, producer, actors } = req.body;
+  const { name, year, plot, producer, actors } = req.body;
   try {
     const movie = await Movie.findByIdAndUpdate(
       id,
-      { name, year, producer, actors },
+      { name, year, plot, producer, actors },
       { new: true }
     )
       .populate("producer")

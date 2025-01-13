@@ -23,9 +23,9 @@ export const addProducer = async (req: Request, res: Response) => {
 
 export const updateProducer = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { name, dob, bio } = req.body;
+    const { name, gender, dob, bio } = req.body;
     try {
-        const producer = await Producer.findByIdAndUpdate(id, { name, dob, bio }, { new: true });
+        const producer = await Producer.findByIdAndUpdate(id, { name, gender, dob, bio }, { new: true });
         res.json(producer);
     } catch (error) {
         res.status(400).json({ message: (error as any).message });
