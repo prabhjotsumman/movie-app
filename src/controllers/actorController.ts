@@ -12,7 +12,6 @@ export const getActors = async (req: Request, res: Response) => {
 
 export const addActor = async (req: Request, res: Response) => {
     const { name, dob, bio, gender } = req.body;
-    console.log("Server Add Actor", name, dob, bio, gender);
     try {
         const actor = new Actor({ name, dob, bio, gender });
         await actor.save();

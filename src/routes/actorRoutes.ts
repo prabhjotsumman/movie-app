@@ -3,8 +3,6 @@ import { getActors, addActor, updateActor, deleteActor } from "../controllers/ac
 
 const router = express.Router();
 
-console.log("Actor Routes");
-
 router.get("/getActors", getActors);
 router.post("/addActor", addActor);
 router.put("/updateActor/:id", updateActor);

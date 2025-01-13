@@ -14,7 +14,6 @@ export const addMovie = async (req: Request, res: Response) => {
   const { name, year, plot, poster, producer, actors } = req.body;
   try {
     const movie = new Movie({ name, year, plot, poster, producer, actors });
-    console.log("RECEIVED:", movie);
     const savedMovie = await movie.save();
 
     // Populate the producer and actors fields
